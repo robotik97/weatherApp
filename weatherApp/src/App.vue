@@ -11,9 +11,10 @@ export default{
 <template>
 <div class="wrapper">
 <h1>weater app</h1>
-<p>find out the weather in the {{city}}</p>
+<p>find out the weather in {{city==""?"your city": city}}</p>
 <input type="text" v-model="city" placeholder="enter city">
-<button>push here</button>
+<button v-if="city!==''">push here</button>
+<button v-else="city==''">enter the name of the city</button>
 </div>
 </template>
 
@@ -22,7 +23,7 @@ export default{
   width: 400px;
   height: 250px;
   border-radius: 50px;
-  color: #4c4e4a;
+  /* color: #4c4e4a; */
   padding: 20px;
   background: #74e70e;
   text-align: center;
@@ -44,7 +45,8 @@ export default{
   font-size: 14px;
 }
 .wrapper input:focus{
-  border-bottom-color: rgb(237, 255, 215);
+  border-bottom-color: rgb(38,38,39);
+  border: none;
 }
  .wrapper button:hover{
   transform: scale(1.1) translateY(-5px);
