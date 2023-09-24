@@ -2,30 +2,46 @@
 export default {
   data() {
     return {
-      city: ""
+      city: "",
+      error: ""
     }
   },
-  computed:{
-cityName(){
-return "«"+this.city+"»"
-}
+  computed: {
+    cityName() {
+      return "«" + this.city + "»"
+    }
+  },
+  methods: {
+    getWeather() {
+      if (this.city.trim().length < 2) {
+        this.error = "enter more than two characters"
+        return false
+      } 
+      this.error = ""
+    }
   }
+
 }
 </script>
 
 <template>
   <div class="wrapper">
-    <h1>weater app</h1>
+    <h1>weather app</h1>
     <p>find out the weather in {{ city == "" ? "your city" : cityName }}</p>
     <input type="text" v-model="city" placeholder="enter city">
     <!-- changing button -->
     <!-- if the input is empty, then the button does not work -->
-    <button v-if="city !== ''">push here</button>
+    <button v-if="city !== ''" @click="getWeather()">push here</button>
     <button disabled v-else="city==''">enter the name of the city</button>
+    <p class="error">{{ error }}</p>
   </div>
 </template>
 
 <style scoped>
+.error {
+  color: rgb(236, 39, 49);
+}
+
 .wrapper {
   width: 400px;
   height: 250px;
@@ -55,7 +71,7 @@ return "«"+this.city+"»"
 }
 
 .wrapper button:disabled {
-  background:  rgb(73, 73, 74);
+  background: rgb(73, 73, 74);
 }
 
 .wrapper input:focus {
@@ -65,5 +81,6 @@ return "«"+this.city+"»"
 
 .wrapper button:hover {
   transform: scale(1.1) translateY(-5px);
+  color: rgb(234, 255, 100);
 }
 </style>
