@@ -42,7 +42,7 @@ export default {
 
 <template>
   <div class="wrapper">
-    <h1>weather app</h1>
+    <h1>weather app</h1>         
     <p>find out the weather in {{ city == "" ? "your city" : cityName }}</p>
     <input type="text" v-model="city" placeholder="enter city">
     <!-- changing button -->
