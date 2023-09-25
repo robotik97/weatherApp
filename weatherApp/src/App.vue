@@ -1,14 +1,28 @@
 <script>
+import axios from 'axios'
 export default {
   data() {
     return {
       city: "",
-      error: ""
+      error: "",
+      info: null
     }
   },
   computed: {
     cityName() {
       return "«" + this.city + "»"
+    },
+    showTemp() {
+      return "Temperature:" + this.info.main.temp
+    },
+    showFellsLike() {
+      return "Feels like:" + this.info.main.feels_like
+    },
+    showMinTemp() {
+      return "Min temperature:" + this.info.main.temp_min
+    },
+    showMaxTemp() {
+      return "Max temperature:" + this.info.main.temp_max
     }
   },
   methods: {
@@ -16,8 +30,10 @@ export default {
       if (this.city.trim().length < 2) {
         this.error = "enter more than two characters"
         return false
-      } 
+      }
       this.error = ""
+      axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${this.city}&units=metric&appid=32e8dbc84883eeb465b483cef6342220`)
+        .then(result => (this.info = result.data))
     }
   }
 
@@ -34,6 +50,12 @@ export default {
     <button v-if="city !== ''" @click="getWeather()">push here</button>
     <button disabled v-else="city==''">enter the name of the city</button>
     <p class="error">{{ error }}</p>
+    <div v-if="info != null">
+      <p>{{ showTemp }}</p>
+      <p>{{ showFellsLike }}</p>
+      <p>{{ showMinTemp }}</p>
+      <p>{{ showMaxTemp }}</p>
+    </div>
   </div>
 </template>
 
